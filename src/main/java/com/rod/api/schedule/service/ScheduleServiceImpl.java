@@ -14,7 +14,7 @@ public class ScheduleServiceImpl  implements ScheduleService{
     private final ScheduleRepository repository;
 
     @Override
-    public List<ScheduleDTO> problem23(String date1, String date2) {
+    public List<String> problem23(String date1, String date2) {
         return repository.getProblem23(date1, date2);
     }
 

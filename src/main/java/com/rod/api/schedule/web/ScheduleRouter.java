@@ -12,7 +12,7 @@ import java.util.List;
 public class ScheduleRouter {
     private final ScheduleRepository repository;
 
-    public List<ScheduleDTO> execute(String q, String startDate, String endDate) {
+    public List<?> execute(String q, String startDate, String endDate) {
         return switch (q) {
             case("23") -> repository.getProblem23(startDate, endDate);
             default -> null;

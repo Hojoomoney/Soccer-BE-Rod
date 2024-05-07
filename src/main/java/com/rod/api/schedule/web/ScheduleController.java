@@ -26,7 +26,7 @@ public class ScheduleController {
     private final ScheduleRouter router;
 
     @GetMapping("/problem23")
-    private List<ScheduleDTO> problem23(@RequestParam("date1") String date1,
+    private List<String> problem23(@RequestParam("date1") String date1,
                                         @RequestParam("date2") String date2){
         return service.problem23(date1, date2);
     }

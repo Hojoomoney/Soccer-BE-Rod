@@ -26,8 +26,8 @@ public class ScheduleDAOImpl implements ScheduleDAO{
     }
 
     @Override
-    public List<ScheduleDTO> getProblem23(String startDate, String endDate) {
-        return factory.select(new QScheduleDTO(QSchedule.schedule.stadium.stadiumName))
+    public List<String> getProblem23(String startDate, String endDate) {
+        return factory.select(QSchedule.schedule.stadium.stadiumName)
                 .from(QSchedule.schedule)
                 .leftJoin(QSchedule.schedule.stadium, QStadium.stadium)
                 .where(QSchedule.schedule.scheDate.between(startDate, endDate))

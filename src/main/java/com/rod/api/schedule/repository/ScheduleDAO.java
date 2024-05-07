@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface ScheduleDAO {
     List<ScheduleDTO> getAllSchedules();
-    List<ScheduleDTO> getProblem23(String startDate, String endDate);
+    List<String> getProblem23(String startDate, String endDate);
 }

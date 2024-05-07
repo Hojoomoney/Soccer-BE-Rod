@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ScheduleService {
-    List<ScheduleDTO> problem23(String date1, String date2);
+    List<String> problem23(String date1, String date2);
 
     List<?> getAllSchedules();
 }
