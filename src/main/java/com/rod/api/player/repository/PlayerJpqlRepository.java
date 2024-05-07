@@ -9,18 +9,18 @@ import java.util.Map;
 public interface PlayerJpqlRepository{
 
     @Query("SELECT DISTINCT new map(p.position as position) from Player p")
-    List<Map<String, Object>> getPractice2();
+    List<Map<String, Object>> searchPractice2();
 
     @Query("select new map(p.playerName as playerName) " +
             "from Player p " +
             "where p.team.id = :teamId and p.position = :position")
-    List<Map<String, Object>> getPractice4(@Param("teamId") String teamId, @Param("position") String position);
+    List<Map<String, Object>> searchPractice4(@Param("teamId") String teamId, @Param("position") String position);
 
     @Query("select new map(p.playerName as playerName)  from Player p where p.playerName like concat(:playerName,'%') and p.height >= :height and p.team.id = (select t.id from Team t where t.regionName = :regionName)")
-    List<Map<String, Object>> getFiveOne(@Param("playerName") String playerName, @Param("height") String height, @Param("regionName") String regionName);
+    List<Map<String, Object>> searchFiveOne(@Param("playerName") String playerName, @Param("height") String height, @Param("regionName") String regionName);
 
     @Query("select new map(p.playerName as playerName) from Player p where p.team.id = :teamId and p.playerName like concat(:playerName,'%') and p.height >= :height")
-    List<Map<String, Object>> getPractice5(@Param("teamId") String teamId, @Param("playerName") String playerName, @Param("height") String height);
+    List<Map<String, Object>> searchPractice5(@Param("teamId") String teamId, @Param("playerName") String playerName, @Param("height") String height);
 
 
     @Query("select new map(p.id as id, p.playerName as playerName, p.ePlayerName as ePlayerName,p.nickname as nickname,p.joinYyyy as joinYyyy, " +
@@ -29,25 +29,25 @@ public interface PlayerJpqlRepository{
             "where p.team.id in (select t.id from Team t where t.teamName = :teamName1 or t.teamName = :teamName2) " +
             "and p.position = :position " +
             "and p.height between :min and :max")
-    List<Map<String, Object>> getPractice6(@Param("teamName1") String teamName1, @Param("teamName2") String teamName2,
+    List<Map<String, Object>> searchPractice6(@Param("teamName1") String teamName1, @Param("teamName2") String teamName2,
                                                                   @Param("position") String position, @Param("min") String min,
                                                                   @Param("max") String max);
     @Query("select new map(p.id as id, p.playerName as playerName, p.ePlayerName as ePlayerName, p.nickname as nickname ,p.joinYyyy as joinYyyy," +
             " p.position as position, p.backNo as backNo, p.nation as nation, p.birthDate as birthDate, p.solar as solar, p.height as height, p.weight as weight, p.team.id as teamId)  " +
             "from Player p where p.position = :position and p.team.id = (select t.id from Team t where t.regionName = :regionName)")
-    List<Map<String, Object>> getPractice7(@Param("position") String position, @Param("regionName") String regionName);
+    List<Map<String, Object>> searchPractice7(@Param("position") String position, @Param("regionName") String regionName);
 
     @Query("select p.id as id, p.playerName as playerName, p.ePlayerName as ePlayerName,p.nickname as nickname,p.joinYyyy as joinYyyy, " +
             "p.position as position, p.backNo as backNo, p.nation as nation, p.birthDate as birthDate, p.solar as solar, p.height as height, p.weight as weight, p.team.id as teamId " +
             "from Player p order by p.id limit 5")
-    List<Map<String, Object>> getPractice18();
+    List<Map<String, Object>> searchPractice18();
 
     //문제 8
     @Query("select new map(p.playerName as playerName, " +
             "ifnull(nullif(p.height,''),'0') as height, " +
             "ifnull(nullif(p.weight,''),'0') as weight) " +
             "from Player p where p.team.id = (select t.id from Team t where t.regionName = :regionName)  order by p.height,p.weight desc")
-    List<Map<String, Object>> getPractice8(@Param("regionName") String regionName);
+    List<Map<String, Object>> searchPractice8(@Param("regionName") String regionName);
 
     //문제 9
     @Query("select new map(p.playerName as playerName, p.position as position, " +
@@ -57,7 +57,7 @@ public interface PlayerJpqlRepository{
             "from Player p " +
             "where p.team.id = (select t.id from Team t where t.regionName = :regionName) " +
             "order by p.playerName desc")
-    List<Map<String, Object>> getPractice9(@Param("regionName") String regionName);
+    List<Map<String, Object>> searchPractice9(@Param("regionName") String regionName);
 
     //문제 20
     @Query("select new map((select t.teamName from Team t where t.id = p.team.id) as teamName, " +
@@ -65,7 +65,7 @@ public interface PlayerJpqlRepository{
             "p.backNo as backNo) " +
             "from Player p " +
             "where p.position = :position")
-    List<Map<String, Object>> getPractice20(@Param("position") String position);
+    List<Map<String, Object>> searchPractice20(@Param("position") String position);
 
     //문제 21
     @Query("select (select t.teamName from Team t where t.id = p.team.id) as teamName, " +
@@ -73,7 +73,7 @@ public interface PlayerJpqlRepository{
             "        p.backNo as backNo " +
             "from Player p " +
             "order by p.height desc limit 5")
-    List<Map<String, Object>> getPractice21();
+    List<Map<String, Object>> searchPractice21();
 
     //문제 22
     @Query("SELECT p.playerName as playerName, p.height as height, p.team.id as teamId " +
@@ -83,5 +83,5 @@ public interface PlayerJpqlRepository{
             "FROM Player p1 " +
             "WHERE p1.team.id = p.team.id " +
             "GROUP BY p1.team.id) as double)")
-    List<Map<String, Object>> getPractice22();
+    List<Map<String, Object>> searchPractice22();
 }

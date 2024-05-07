@@ -17,24 +17,24 @@ public class PlayerServiceImpl implements PlayerService{
 
 
     @Override
-    public List<Map<String, Object>> getPractice2() {
-        log.info("Position : {}", repository.getPractice2());
-        return repository.getPractice2();
+    public List<Map<String, Object>> searchPractice2() {
+        log.info("Position : {}", repository.searchPractice2());
+        return repository.searchPractice2();
     }
 
     @Override
-    public List<Map<String, Object>> getPractice4(String teamId, String position) {
-        return repository.getPractice4(teamId, position);
+    public List<Map<String, Object>> searchPractice4(String teamId, String position) {
+        return repository.searchPractice4(teamId, position);
     }
 
     @Override
-    public List<Map<String, Object>> getFiveOne(String playerName, String height, String regionName) {
-        return repository.getFiveOne(playerName, height, regionName);
+    public List<Map<String, Object>> searchFiveOne(String playerName, String height, String regionName) {
+        return repository.searchFiveOne(playerName, height, regionName);
     }
 
 //    @Override
-//    public List<Player> getPlayerByTeamIdAndNameAndHeight() {
-//        return repository.getPlayerByTeamIdAndNameAndHeight();
+//    public List<Player> searchPlayerByTeamIdAndNameAndHeight() {
+//        return repository.searchPlayerByTeamIdAndNameAndHeight();
 //    }
 //    @Override
 //    public List<Player> findFirst5OrderById() {
@@ -42,43 +42,43 @@ public class PlayerServiceImpl implements PlayerService{
 //    }
 
     @Override
-    public List<Map<String, Object>> getPractice5(String teamId, String playerName, String height) {
-        return repository.getPractice5(teamId, playerName, height);
+    public List<Map<String, Object>> searchPractice5(String teamId, String playerName, String height) {
+        return repository.searchPractice5(teamId, playerName, height);
     }
 
     @Override
-    public List<Map<String, Object>> getPractice18() {
-        return repository.getPractice18().stream().limit(5).toList();
+    public List<Map<String, Object>> searchPractice18() {
+        return repository.searchPractice18().stream().limit(5).toList();
     }
 
     @Override
-    public List<Map<String, Object>> getPractice6(String team1, String team2,String position, String min, String max) {
-        return repository.getPractice6(team1, team2, position, min, max);
+    public List<Map<String, Object>> searchPractice6(String team1, String team2,String position, String min, String max) {
+        return repository.searchPractice6(team1, team2, position, min, max);
     }
     @Override
-    public List<Map<String, Object>> getPractice7(String position, String regionName) {
-        return repository.getPractice7(position,regionName);
+    public List<Map<String, Object>> searchPractice7(String position, String regionName) {
+        return repository.searchPractice7(position,regionName);
     }
 
 
     @Override
-    public List<Map<String, Object>> getPractice8(String regionName) {
-        return repository.getPractice8(regionName);
-    }
-
-    @Override
-    public List<Map<String, Object>> getPractice9(String regionName) {
-        return repository.getPractice9(regionName);
+    public List<Map<String, Object>> searchPractice8(String regionName) {
+        return repository.searchPractice8(regionName);
     }
 
     @Override
-    public List<Map<String, Object>> getPractice20(String position) {
-        return repository.getPractice20(position);
+    public List<Map<String, Object>> searchPractice9(String regionName) {
+        return repository.searchPractice9(regionName);
     }
 
     @Override
-    public List<Map<String, Object>> getPractice21() {
-        return repository.getPractice21();
+    public List<Map<String, Object>> searchPractice20(String position) {
+        return repository.searchPractice20(position);
+    }
+
+    @Override
+    public List<Map<String, Object>> searchPractice21() {
+        return repository.searchPractice21();
     }
 
 
