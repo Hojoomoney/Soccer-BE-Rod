@@ -1,32 +1,41 @@
 package com.rod.api.schedule.model;
 
-import lombok.AllArgsConstructor;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 @Component
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@Log4j2
 public class ScheduleDTO {
-    Long id;
-    String stadiumId;
-    String scheDate;
-    String gubun;
-    String hometeamId;
-    String awayteamId;
-    Integer homeScore;
-    Integer awayScore;
-    String teamName;
-    String awayTeamName;
-    String stadiumName;
+    private Long id;
+    private String scheDate;
+    private String gubun;
+    private String hometeamId;
+    private String awayteamId;
+    private Integer homeScore;
+    private Integer awayScore;
+    private String stadium;
 
-    public ScheduleDTO(String teamName, String awayTeamName, String stadiumName) {
-        this.teamName = teamName;
-        this.awayTeamName = awayTeamName;
-        this.stadiumName = stadiumName;
+    @QueryProjection
+    public ScheduleDTO(Long id, String scheDate, String gubun, String hometeamId, String awayteamId, Integer homeScore, Integer awayScore, String stadium) {
+        this.id = id;
+        this.scheDate = scheDate;
+        this.gubun = gubun;
+        this.hometeamId = hometeamId;
+        this.awayteamId = awayteamId;
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
+        this.stadium = stadium;
+    }
+
+    @QueryProjection
+    public ScheduleDTO(String stadium) {
+        this.stadium = stadium;
     }
 }
