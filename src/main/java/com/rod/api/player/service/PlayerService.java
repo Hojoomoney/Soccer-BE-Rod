@@ -1,5 +1,7 @@
 package com.rod.api.player.service;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,4 +28,6 @@ public interface PlayerService{
 
     List<Map<String, Object>> searchPractice20(String position);
     List<Map<String, Object>> searchPractice21();
+
+    Long countAllPlayers();
 }

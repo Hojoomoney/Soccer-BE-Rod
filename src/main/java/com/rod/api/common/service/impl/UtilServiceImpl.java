@@ -1,4 +1,6 @@
-package com.rod.api.common.service;
+package com.rod.api.common.service.impl;
+
+import com.rod.api.common.service.UtilService;
 
 public class UtilServiceImpl implements UtilService {
     private static UtilService instance = new UtilServiceImpl();

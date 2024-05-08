@@ -165,4 +165,9 @@ public class PlayerDAOImpl implements PlayerDAO {
                 .fetch();
     }
 
+    @Override
+    public Long countAllPlayers() {
+        return factory.select(player.count()).from(player).fetchOne();
+    }
+
 }

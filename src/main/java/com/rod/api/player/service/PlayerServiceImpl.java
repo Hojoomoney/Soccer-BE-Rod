@@ -1,5 +1,8 @@
 package com.rod.api.player.service;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.rod.api.player.model.QPlayer;
 import com.rod.api.player.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +17,8 @@ import java.util.Map;
 public class PlayerServiceImpl implements PlayerService{
 
     private final PlayerRepository repository;
-
+    private final JPAQueryFactory factory;
+    private final QPlayer player = QPlayer.player;
 
     @Override
     public List<Map<String, Object>> searchPractice2() {
@@ -79,6 +83,11 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     public List<Map<String, Object>> searchPractice21() {
         return repository.searchPractice21();
+    }
+
+    @Override
+    public Long countAllPlayers() {
+        return repository.countAllPlayers();
     }
 
 
