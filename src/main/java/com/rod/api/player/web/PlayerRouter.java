@@ -23,7 +23,7 @@ public class PlayerRouter {
                     case "5-1" -> repository.getPractice51(playerName,height,regionName);
                     case "6" -> repository.getPractice6(teamName1,teamName2,position,min,max);
                     case "7" -> repository.getPractice7(position,regionName);
-                    case "8" -> repository.searchPractice8(regionName);
+                    case "8" -> repository.getPractice8(regionName);
                     case "9" -> repository.searchPractice9(regionName);
                     case "18" -> repository.getPractice18();
                     case "20" -> repository.searchPractice20(position);
