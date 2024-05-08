@@ -81,5 +81,10 @@ public class PlayerServiceImpl implements PlayerService{
         return repository.searchPractice21();
     }
 
+    @Override
+    public Long countAllPlayers() {
+        return repository.getcountAllPlayers();
+    }
+
 
 }

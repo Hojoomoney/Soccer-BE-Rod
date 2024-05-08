@@ -153,6 +153,12 @@ public class PlayerDAOImpl implements PlayerDAO {
                 .fetch();
     }
 
+    @Override
+    public Long getcountAllPlayers() {
+        return factory.select(player.count()).from(player).fetchOne();
+    }
+
+
 //    @Override
 //    public List<PlayerDTO> getPractice8(String regionName) {
 //        return factory.select(

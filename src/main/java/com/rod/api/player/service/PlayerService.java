@@ -26,4 +26,5 @@ public interface PlayerService{
 
     List<Map<String, Object>> searchPractice20(String position);
     List<Map<String, Object>> searchPractice21();
+    Long countAllPlayers();
 }
