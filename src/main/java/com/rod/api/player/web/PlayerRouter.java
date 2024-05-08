@@ -19,16 +19,16 @@ public class PlayerRouter {
      return switch (q){
                     case "2" -> repository.getPractice2();
                     case "4" -> repository.getPractice4(teamId,position);
-                    case "5" -> repository.getPractice5(teamId,playerName,height);
-                    case "5-1" -> repository.getFiveOne(playerName,height,regionName);
+                    case "5" -> repository.searchPractice5(teamId,playerName,height);
+                    case "5-1" -> repository.getPractice51(playerName,height,regionName);
                     case "6" -> repository.getPractice6(teamName1,teamName2,position,min,max);
                     case "7" -> repository.getPractice7(position,regionName);
-                    case "8" -> repository.getPractice8(regionName);
-                    case "9" -> repository.getPractice9(regionName);
+                    case "8" -> repository.searchPractice8(regionName);
+                    case "9" -> repository.searchPractice9(regionName);
                     case "18" -> repository.getPractice18();
-                    case "20" -> repository.getPractice20(position);
-                    case "21" -> repository.getPractice21();
-                    case "22" -> repository.getPractice22();
+                    case "20" -> repository.searchPractice20(position);
+                    case "21" -> repository.searchPractice21();
+                    case "22" -> repository.searchPractice22();
                     case "all" -> repository.getAllPlayers();
                     default -> null;
      };

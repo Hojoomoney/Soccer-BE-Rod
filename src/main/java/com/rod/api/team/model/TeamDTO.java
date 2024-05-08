@@ -2,12 +2,15 @@ package com.rod.api.team.model;
 
 import com.querydsl.core.annotations.QueryProjection;
 import jakarta.xml.ws.BindingType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
 
-@Getter
+@Component
 @Builder
+@Data
+@NoArgsConstructor
+@Log4j2
 public class TeamDTO {
     private String id;
     private String regionName;
@@ -25,7 +28,6 @@ public class TeamDTO {
     private String stadiumId;
 
     @QueryProjection
-
     public TeamDTO(String id, String regionName, String teamName, String eTeamName, String origYyyy, String zipCode1, String zipCode2, String address, String ddd, String tel, String fax, String homePage, String owner, String stadiumId) {
         this.id = id;
         this.regionName = regionName;
@@ -42,4 +44,5 @@ public class TeamDTO {
         this.owner = owner;
         this.stadiumId = stadiumId;
     }
+
 }
