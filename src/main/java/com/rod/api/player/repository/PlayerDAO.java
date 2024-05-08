@@ -19,4 +19,6 @@ public interface PlayerDAO {
    List<PlayerDTO> getPractice7(String position, String regionName);
    List<PlayerDTO> getPractice18();
    List<Map<Expression<?>, ?>> getPractice8(String regionName);
+
+   Long countAllPlayers();
 }

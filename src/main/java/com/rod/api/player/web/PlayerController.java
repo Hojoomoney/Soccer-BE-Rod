@@ -1,6 +1,9 @@
 package com.rod.api.player.web;
 
-import com.rod.api.player.repository.PlayerRepository;
+import com.rod.api.common.model.Box;
+import com.rod.api.common.model.PageDTO;
+import com.rod.api.common.service.PageService;
+import com.rod.api.player.service.PlayerService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class PlayerController {
-    private final PlayerRepository repository;
+    private final PlayerService service;
+    private final PageService pageService;
     private final PlayerRouter router;
 
     @GetMapping(path = "/search")
@@ -38,57 +42,27 @@ public class PlayerController {
             Pageable pageable
     ){
         log.info("MY-INFO : Controller searchPlayer q is {}", q);
+
         log.info("MY-INFO : Controller searchPlayer page is {}", pageable.getPageNumber());
         log.info("MY-INFO : Controller searchPlayer limit is {}", pageable.getPageSize());
         log.info("MY-INFO : Controller searchPlayer sortField is {}", pageable.getSort().toString());
 
         // nowPage, rowCount, pageSize, blockSize 외부주입.. count, size 1 부터, number 는 0부터
 
-        int totalCount = 2340;
-        int pageCount = 0;
-        int blockCount = 0;
-        int startRow = 0;
-        int endRow = 0;
-        int blockNum = 0;
-        int startPage = 0;
-        int endPage = 0;
-        int pageSize = 10;
-        int pageNum = 1;
-        int BLOCK_SIZE = 10;
-        boolean existPrev = false;
-        boolean existNext = false;
-        int nextBlock = 0;
-        int prevBlock = 0;
-
-        pageCount = (totalCount % pageSize != 0) ? (totalCount / pageSize)+1 : totalCount / pageSize;
-        startRow = (pageNum-1)*pageSize;
-        endRow = (pageNum==pageCount) ? totalCount -1 : startRow + pageSize -1;
-        blockCount = (pageCount % BLOCK_SIZE != 0) ? (pageCount / BLOCK_SIZE)+1 : pageCount / BLOCK_SIZE;
-        blockNum = (pageNum - 1) / BLOCK_SIZE;
-        startPage = blockNum * BLOCK_SIZE + 1;
-        endPage = ((blockNum + 1) != blockCount) ? startPage + (BLOCK_SIZE -1) : pageCount;
-        existPrev = blockNum != 0;
-        existNext = (blockNum + 1) != blockCount;
-        nextBlock = startPage + BLOCK_SIZE;
-        prevBlock = startPage - BLOCK_SIZE;
 
 
-        log.info("MY-INFO : Controller searchPlayer totalCount is {}", totalCount);
-        log.info("MY-INFO : Controller searchPlayer pageCount is {}", pageCount);
-        log.info("MY-INFO : Controller searchPlayer blockCount is {}", blockCount);
-        log.info("MY-INFO : Controller searchPlayer startRow is {}", startRow);
-        log.info("MY-INFO : Controller searchPlayer endRow is {}", endRow);
-        log.info("MY-INFO : Controller searchPlayer blockNum is {}", blockNum);
-        log.info("MY-INFO : Controller searchPlayer startPage is {}", startPage);
-        log.info("MY-INFO : Controller searchPlayer endPage is {}", endPage);
-        log.info("MY-INFO : Controller searchPlayer existPrev is {}", existPrev);
-        log.info("MY-INFO : Controller searchPlayer existNext is {}", existNext);
-        log.info("MY-INFO : Controller searchPlayer nextBlock is {}", nextBlock);
-        log.info("MY-INFO : Controller searchPlayer prevBlock is {}", prevBlock);
 
         List<?> o = router.execute(q,playerName,position,teamId,regionName,
                                                         height, teamName1,teamName2,min,max);
-        return ResponseEntity.ok(o);
+        Long totalCount = service.countAllPlayers();
+        Long pageNumber = (long) pageable.getPageNumber();
+        Long pageSize = (long) pageable.getPageSize();
+        Box box = new Box();
+        PageDTO page = pageService.getPageDTO(totalCount,pageNumber,pageSize);
+        box.setPageDTO(page);
+        box.setList(o);
+
+        return ResponseEntity.ok(box);
     }
 
 //    @GetMapping(path = "/findAll")
