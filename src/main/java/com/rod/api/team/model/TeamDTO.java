@@ -1,5 +1,6 @@
 package com.rod.api.team.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import jakarta.xml.ws.BindingType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +8,6 @@ import lombok.Getter;
 
 @Getter
 @Builder
-@AllArgsConstructor
 public class TeamDTO {
     private String id;
     private String regionName;
@@ -23,20 +23,23 @@ public class TeamDTO {
     private String homePage;
     private String owner;
     private String stadiumId;
-    private Double avgHeight;
 
-    public TeamDTO(String id, String teamName, double avgHeight) {
+    @QueryProjection
+
+    public TeamDTO(String id, String regionName, String teamName, String eTeamName, String origYyyy, String zipCode1, String zipCode2, String address, String ddd, String tel, String fax, String homePage, String owner, String stadiumId) {
         this.id = id;
+        this.regionName = regionName;
         this.teamName = teamName;
-        this.avgHeight = avgHeight;
-    }
-
-    public TeamDTO(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public TeamDTO(String teamName, String stadiumId) {
-        this.teamName = teamName;
+        this.eTeamName = eTeamName;
+        this.origYyyy = origYyyy;
+        this.zipCode1 = zipCode1;
+        this.zipCode2 = zipCode2;
+        this.address = address;
+        this.ddd = ddd;
+        this.tel = tel;
+        this.fax = fax;
+        this.homePage = homePage;
+        this.owner = owner;
         this.stadiumId = stadiumId;
     }
 }
