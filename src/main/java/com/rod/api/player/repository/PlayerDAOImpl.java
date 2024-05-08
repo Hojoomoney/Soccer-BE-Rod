@@ -1,8 +1,7 @@
 package com.rod.api.player.repository;
 
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.rod.api.player.model.PlayerDTO;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -153,19 +151,18 @@ public class PlayerDAOImpl implements PlayerDAO {
                 .fetch();
     }
 
-//    @Override
-//    public List<PlayerDTO> getPractice8(String regionName) {
-//        return factory.select(
-//                   new QPlayerDTO(player.playerName.as("playerName"),
-//                           player.height.coalesce("0"),
-//                           player.weight.coalesce("0")
-//                ))
-//                .from(player)
-//                .innerJoin(player.team, team)
-//                .where(team.regionName.eq(regionName))
-//                .orderBy(player.height.desc(), player.weight.desc())
-//                .fetch();
-//    }
-
+    @Override
+    public List<Map<Expression<?>, ?>> getPractice8(String regionName) {
+        return factory.select(
+                   Projections.map(player.playerName.as("playerName"),
+                           player.height.nullif("").coalesce("0").as("height"),
+                           player.weight.nullif("").coalesce("0").as("weight")
+                ))
+                .from(player)
+                .innerJoin(player.team, team)
+                .where(team.regionName.eq(regionName))
+                .orderBy(player.height.desc(), player.weight.desc())
+                .fetch();
+    }
 
 }
