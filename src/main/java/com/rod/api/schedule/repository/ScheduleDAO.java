@@ -9,4 +9,6 @@ import java.util.Map;
 public interface ScheduleDAO {
     List<ScheduleDTO> getAllSchedules();
     List<String> getProblem23(String startDate, String endDate);
+
+    Long countAllSchedules();
 }
