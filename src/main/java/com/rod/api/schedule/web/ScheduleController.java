@@ -4,7 +4,6 @@ package com.rod.api.schedule.web;
 import com.rod.api.common.model.Box;
 import com.rod.api.common.model.PageDTO;
 import com.rod.api.common.service.impl.PageServiceImpl;
-import com.rod.api.schedule.model.ScheduleDTO;
 import com.rod.api.schedule.service.ScheduleService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
