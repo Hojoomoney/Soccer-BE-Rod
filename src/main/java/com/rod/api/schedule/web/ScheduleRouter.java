@@ -1,6 +1,5 @@
 package com.rod.api.schedule.web;
 
-import com.rod.api.schedule.model.ScheduleDTO;
 import com.rod.api.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

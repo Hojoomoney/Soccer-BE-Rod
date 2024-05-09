@@ -1,6 +1,7 @@
 package com.rod.api.schedule.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.rod.api.player.model.QPlayer;
 import com.rod.api.schedule.model.QSchedule;
 import com.rod.api.schedule.model.QScheduleDTO;
 import com.rod.api.schedule.model.ScheduleDTO;
@@ -15,23 +16,31 @@ import java.util.List;
 public class ScheduleDAOImpl implements ScheduleDAO{
 
     private final JPAQueryFactory factory;
+    private final QSchedule schedule = QSchedule.schedule;
 
     @Override
     public List<ScheduleDTO> getAllSchedules() {
-        return factory.select(new QScheduleDTO(QSchedule.schedule.id, QSchedule.schedule.scheDate, QSchedule.schedule.gubun,
-                        QSchedule.schedule.hometeamId, QSchedule.schedule.awayteamId, QSchedule.schedule.homeScore,
-                        QSchedule.schedule.awayScore, QSchedule.schedule.stadium.id)
-                ).from(QSchedule.schedule)
+        return factory.select(new QScheduleDTO(schedule.id, schedule.scheDate, schedule.gubun,
+                        schedule.hometeamId, schedule.awayteamId, schedule.homeScore,
+                        schedule.awayScore, schedule.stadium.id)
+                ).from(schedule)
                 .fetch();
     }
 
     @Override
     public List<String> getProblem23(String startDate, String endDate) {
-        return factory.select(QSchedule.schedule.stadium.stadiumName)
-                .from(QSchedule.schedule)
-                .leftJoin(QSchedule.schedule.stadium, QStadium.stadium)
-                .where(QSchedule.schedule.scheDate.between(startDate, endDate))
+        return factory.select(schedule.stadium.stadiumName)
+                .from(schedule)
+                .leftJoin(schedule.stadium, QStadium.stadium)
+                .where(schedule.scheDate.between(startDate, endDate))
                 .groupBy(QStadium.stadium.stadiumName)
                 .fetch();
+    }
+
+    @Override
+    public Long countAllSchedules() {
+        return factory.select(schedule.count())
+                .from(schedule)
+                .fetchOne();
     }
 }

@@ -1,12 +1,10 @@
 package com.rod.api.schedule.service;
 
-import com.rod.api.schedule.model.ScheduleDTO;
 import com.rod.api.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +19,11 @@ public class ScheduleServiceImpl  implements ScheduleService{
     @Override
     public List<?> getAllSchedules() {
         return repository.getAllSchedules();
+    }
+
+    @Override
+    public Long countAllSchedules() {
+        return repository.countAllSchedules();
     }
 
 }
