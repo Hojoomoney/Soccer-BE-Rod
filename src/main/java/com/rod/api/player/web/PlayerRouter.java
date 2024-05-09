@@ -26,7 +26,7 @@ public class PlayerRouter {
                     case "8" -> repository.getPractice8(regionName);
                     case "9" -> repository.searchPractice9(regionName);
                     case "18" -> repository.getPractice18();
-                    case "20" -> repository.searchPractice20(position);
+                    case "20" -> repository.getPractice20(position);
                     case "21" -> repository.searchPractice21();
                     case "22" -> repository.searchPractice22();
                     case "all" -> repository.getAllPlayers();

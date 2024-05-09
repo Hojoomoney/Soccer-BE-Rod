@@ -1,9 +1,11 @@
 package com.rod.api.player.repository;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.rod.api.player.model.Player;
 import com.rod.api.player.model.PlayerDTO;
 import com.rod.api.player.model.QPlayer;
 import com.rod.api.player.model.QPlayerDTO;
@@ -38,7 +40,6 @@ public class PlayerDAOImpl implements PlayerDAO {
                         player.weight,
                         player.team.id))
                 .from(player)
-
                 .fetch();
     }
 
@@ -152,9 +153,9 @@ public class PlayerDAOImpl implements PlayerDAO {
     }
 
     @Override
-    public List<Map<Expression<?>, ?>> getPractice8(String regionName) {
-        return factory.select(
-                   Projections.map(player.playerName.as("playerName"),
+    public List<PlayerDTO> getPractice8(String regionName) {
+        return factory.select(Projections.fields(PlayerDTO.class,
+                   player.playerName.as("playerName"),
                            player.height.nullif("").coalesce("0").as("height"),
                            player.weight.nullif("").coalesce("0").as("weight")
                 ))
@@ -166,8 +167,65 @@ public class PlayerDAOImpl implements PlayerDAO {
     }
 
     @Override
+    public List<Map<String,String>> getPractice20(String position) {
+        return factory.select(
+                team.teamName,
+                player.playerName,
+                player.backNo)
+                .from(player)
+                .innerJoin(player.team, team)
+                .where(player.position.eq(position))
+                .fetch()
+                .stream()
+                .map(i->Map.of("teamName",i.get(team.teamName),"playerName",i.get(player.playerName),"backNo",i.get(player.backNo)))
+                .toList();
+    }
+
+    @Override
+    public List<Map<String, String>> getPractice21() {
+        return factory.select(
+                JPAExpressions.select(team.teamName).from(team).where(team.id.eq(player.team.id)),
+                player.playerName,
+                player.backNo)
+                .from(player)
+                .orderBy(player.height.desc())
+                .offset(0)
+                .limit(5)
+                .fetch()
+                .stream()
+                .map(i->Map.of("playerName",i.get(player.playerName)
+                        ,"backNo",i.get(player.backNo)
+                        ,"teamName",i.get(team.teamName))
+                ).toList();
+    }
+
+    @Override
+    public List<Map<String, String>> getPractice22() {
+        QPlayer player1 = new QPlayer("player1");
+        return factory.select(
+                player.playerName,
+                player.height,
+                player.team.id
+                )
+                .from(player)
+                .where(player.height.castToNum(double.class).lt(
+                                JPAExpressions
+                                        .select(player1.height.castToNum(double.class).avg())
+                                        .from(player1)
+                                        .where(player1.team.id.eq(player.team.id))
+                        )
+                )
+                .fetch().stream().map(i->Map.of("playerName",i.get(player.playerName)
+                        ,"height",i.get(player.height)
+                        ,"teamId",i.get(player.team.id))
+                ).toList();
+    }
+
+    @Override
     public Long countAllPlayers() {
         return factory.select(player.count()).from(player).fetchOne();
     }
+
+
 
 }
